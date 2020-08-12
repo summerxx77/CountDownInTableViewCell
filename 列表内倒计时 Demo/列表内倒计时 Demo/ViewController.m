@@ -46,25 +46,20 @@ static NSString *couponHelpCell = @"CustomCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     Models *model = [[Models alloc] init];
-    model.des = @"夏天然后";
-    model.remainTime = 100000;
+    model.des = @"夏天然后   1";
+    model.remainTime = 10000;
     [self.couponArray addObject:model];
     
     Models *model1 = [[Models alloc] init];
-    model1.remainTime = 00000;
+    model1.des = @"夏天然后   2";
+    model1.remainTime = 5000;
     [self.couponArray addObject:model1];
     
     Models *model2 = [[Models alloc] init];
-    model2.remainTime = 40000;
+    model2.des = @"夏天然后   3";
+    model2.remainTime = 7000;
     [self.couponArray addObject:model2];
     
-    Models *model3 = [[Models alloc] init];
-    model3.remainTime = 30000;
-    [self.couponArray addObject:model3];
-    
-    Models *model4 = [[Models alloc] init];
-    model4.remainTime = 3000;
-    [self.couponArray addObject:model4];
     
     [self.tableView reloadData];
 }
@@ -128,38 +123,15 @@ static NSString *couponHelpCell = @"CustomCell";
         Models *m = cellCopy.firstObject;
         NSInteger time = m.countNum;
         // 30s后刷新
-        [self performSelector:@selector(afterDelayReloadTabview) withObject:nil afterDelay:time];
+        [self performSelector:@selector(afterDelayReloadTabview:) withObject:m.des afterDelay:time];
     }];;
     [[NSRunLoop mainRunLoop] addTimer:self.timerObser forMode:NSRunLoopCommonModes];
 
 }
 
-- (void)afterDelayReloadTabview
+- (void)afterDelayReloadTabview:(NSString *)des
 {
-    [self.couponArray removeAllObjects];
-    
-    Models *model = [[Models alloc] init];
-    model.des = @"summerxx.com";
-    model.remainTime = 100000;
-    [self.couponArray addObject:model];
-    
-    Models *model1 = [[Models alloc] init];
-    model1.remainTime = 00000;
-    [self.couponArray addObject:model1];
-    
-    Models *model2 = [[Models alloc] init];
-    model2.remainTime = 40000;
-    [self.couponArray addObject:model2];
-    
-    Models *model3 = [[Models alloc] init];
-    model3.remainTime = 30000;
-    [self.couponArray addObject:model3];
-    
-    Models *model4 = [[Models alloc] init];
-    model4.remainTime = 3000;
-    [self.couponArray addObject:model4];
-    
-    [self.tableView reloadData];
+    NSLog(@"des= %@时间到了", des);
 }
 
 - (UITableView *)tableView
